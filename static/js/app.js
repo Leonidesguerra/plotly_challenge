@@ -49,23 +49,35 @@ let data= d3.json(data_path).then((results)=>{
         d3.select(".meta").append("p").text(`id: ${bbtype}`);
         d3.select(".meta").append("p").text(`id: ${wfreq}`);
     
+        // Fetching for plot values
+        console.log(subject);
         s.forEach((v)=>{
             if(subject === v.id){
+                sampleValues=[];
+                otuIds=[];
+                otuLabels=[];
+                console.log(v.id)
                 sampleValues.push(v.sample_values);
                 otuIds.push(v.otu_ids);
                 otuLabels.push(v.otu_labels);
             }
         });
-           
+        
+        //selecting top ten values
         values = sampleValues[0].slice(0, 10);
         ids = otuIds[0].slice(0, 10);
         labels = otuLabels[0].slice(0, 10);
+        
+        
+
         let otu_id=[];
 
+        //adding the string 'otu' to id value in order to plot correctly
         ids.forEach((x)=>{
             otu_id.push(`otu ${x}`);
-        })
+        });
 
+        // sorting values for plot
         otu_id.sort(function compareFunction(first, second) {
             return first - second;
           });
@@ -73,49 +85,51 @@ let data= d3.json(data_path).then((results)=>{
         return first - second;
         });
 
-        console.log(values);
-        console.log(ids);
 
-        var trace1 = {
+        // bar plot
+        
+        var trace = {
             x: values,
             y: otu_id,
             type: "bar",
             orientation:'h',
+            text: labels
         };
-        var gdata = [trace1];
+        var data = [trace];
 
         var layout = {
+            title: "10 most present microbial species",
+            xaxis: { title: ""},
+            yaxis: { title: ""}
+        };
+        
+        Plotly.react("bar", data, layout);
+
+        // bubble chart
+        var trace1 = {
+            x: otuIds[0],
+            y: sampleValues[0],
+            mode: 'markers',
+            marker:{
+                size: sampleValues[0],
+                color: otuIds[0],
+            }
+        };
+        var data1 = [trace1];
+
+
+        var layout1 = {
             title: "",
             xaxis: { title: ""},
             yaxis: { title: ""}
         };
         
-        Plotly.newPlot("bar", gdata, layout)
-
+        Plotly.react("bubble", data1, layout1);
+       
     });
+
+    
     
       
-       
+});    
         
-        
-        
-   
-
-
-       
-        
-
-
-
-
-
-    
-    
-   
-
-   
-
-
-});
-
-
