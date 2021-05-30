@@ -103,7 +103,7 @@ let data= d3.json(data_path).then((results)=>{
             yaxis: { title: ""}
         };
         
-        Plotly.react("bar", data, layout);
+        Plotly.react("bar", data, layout, {displayModeBar: false});
 
         // bubble chart
         var trace1 = {
@@ -113,6 +113,7 @@ let data= d3.json(data_path).then((results)=>{
             marker:{
                 size: sampleValues[0],
                 color: otuIds[0],
+                colorscale: 'Portland',
             }
         };
         var data1 = [trace1];
@@ -124,7 +125,60 @@ let data= d3.json(data_path).then((results)=>{
             yaxis: { title: ""}
         };
         
-        Plotly.react("bubble", data1, layout1);
+        Plotly.react("bubble", data1, layout1,{displayModeBar: false});
+
+        //gauge chart
+        var trace2 = 
+            {
+              type: "indicator",
+              mode: "gauge",
+              value: 3,
+              title: { text: "Belly Button Washing Frequency", font: { size: 24 }},
+            
+              gauge: {
+                
+                axis: { range: [null, 9], tickwidth: 5, tickcolor: "darkblue"},
+                bar: { color: "darkblue", thickness: 0 },
+                bgcolor: "white",
+                borderwidth: 2,
+                bordercolor: "gray",
+                steps:   
+                [
+                  { range: [0, 1 ], color:'#8983'},
+                  { range: [1, 2 ], color:'#8984'},
+                  { range: [2, 3 ], color:'#7975'},
+                  { range: [3, 4 ], color:'#6976'},
+                  { range: [4, 5 ], color:'#5967'},
+                  { range: [5, 6 ], color:'#4968'},
+                  { range: [6, 7 ], color:'#3948'},
+                  { range: [7, 8 ], color:'#2928'},
+                  { range: [8, 9 ], color:'#1919'},
+                   
+                ],
+                
+            }
+                
+
+              }
+            
+
+        var data2 =[trace2]
+
+          var layout = {
+            width: 500,
+            height: 400,
+            margin: { t: 25, r: 35, l: 35, b: 25},
+            
+           
+            font: { color: "darkblue", family: "Arial" }
+          };
+          
+         Plotly.newPlot('gauge', data2, layout);
+
+
+
+          
+        
        
     });
 
