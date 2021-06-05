@@ -55,6 +55,8 @@ let data= d3.json(data_path).then((results)=>{
         console.log(subject);
         s.forEach((v)=>{
             if(subject === v.id){
+                console.log(subject);
+                console.log(v.id);
                 sampleValues=[];
                 otuIds=[];
                 otuLabels=[];
