@@ -52,11 +52,9 @@ let data= d3.json(data_path).then((results)=>{
         d3.select(".meta").append("p").text(`wfreq: ${wfreq}`);
     
         // Fetching for plot values
-        console.log(subject);
+       
         s.forEach((v)=>{
             if(subject === v.id){
-                console.log(subject);
-                console.log(v.id);
                 sampleValues=[];
                 otuIds=[];
                 otuLabels=[];
@@ -80,11 +78,14 @@ let data= d3.json(data_path).then((results)=>{
         ids.forEach((x)=>{
             otu_id.push(`otu ${x}`);
         });
+        console.log(otu_id)
 
-        // sorting values for plot
-        otu_id.sort(function compareFunction(first, second) {
-            return first - second;
-          });
+        //sorting values for plot
+        // otu_id.sort(function compareFunction(first, second) {
+        //     return first - second;
+        //   });
+        // console.log(otu_id)
+
         values.sort(function compareFunction(first, second) {
         return first - second;
         });
