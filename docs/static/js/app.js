@@ -69,26 +69,33 @@ let data= d3.json(data_path).then((results)=>{
         values = sampleValues[0].slice(0, 10);
         ids = otuIds[0].slice(0, 10);
         labels = otuLabels[0].slice(0, 10);
-        
-        
+     
 
         let otu_id=[];
 
         //adding the string 'otu' to id value in order to plot correctly
         ids.forEach((x)=>{
-            otu_id.push(`otu ${x}`);
+             otu_id.push(`otu ${x}`);
         });
-        console.log(otu_id)
+        
+       
+       
 
         //sorting values for plot
-        // otu_id.sort(function compareFunction(first, second) {
-        //     return first - second;
-        //   });
-        // console.log(otu_id)
+        otu_id.sort(function compareFunction(first, second) {
+            return first - second;
+        });
+       
 
         values.sort(function compareFunction(first, second) {
-        return first - second;
+            return first - second;
         });
+    
+        labels.sort(function compareFunction(first, second) {
+            return first - second;
+        });
+
+        console.log(values);
 
 
         // bar plot
